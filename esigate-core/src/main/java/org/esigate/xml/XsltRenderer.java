@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.XMLConstants;
 
 import nu.validator.htmlparser.common.DoctypeExpectation;
 import nu.validator.htmlparser.common.XmlViolationPolicy;
@@ -87,6 +88,8 @@ public class XsltRenderer implements Renderer {
 	
 	private static Transformer createTransformer(InputStream templateStream) throws IOException {
 		try {
+			// Ensure XSLT cannot use advanced extensions during processing.
+			TRANSFORMER_FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			return TRANSFORMER_FACTORY.newTransformer(new StreamSource(templateStream));
 		} catch (TransformerConfigurationException e) {
 			throw new ProcessingFailedException("Failed to create XSLT template", e);
