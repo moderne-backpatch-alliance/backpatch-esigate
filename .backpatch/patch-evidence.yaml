@@ -1,0 +1,21 @@
+schema: osera-patch-evidence/0.1.0
+producer: moderne
+release: 3.4.1.1-backpatch-00001
+baseline: v3.4.1+backpatch.baseline
+fixes:
+  - cve: CVE-2018-1000854
+    upstream_fix_url: https://github.com/advisories/GHSA-hjm9-576q-399p
+    advisory_url: https://nvd.nist.gov/vuln/detail/CVE-2018-1000854
+    patch_commit_url: https://github.com/moderne-backpatch-alliance/backpatch-esigate/compare/d978192~1...cd3febe
+    basis: adapted
+    artifacts:
+      - org.esigate:esigate-core
+    note: New in this release; ported onto 3.4.1; fixed at 3.4.1.1-backpatch-00001 (backpatch-esigate@d978192..cd3febe).
+tests:
+  commit: cd3febefd2fcd4d6c21977772f3042028bbb7092
+  command: mvn -B -T1 -pl esigate-core -am -Dmaven.test.failure.ignore=true clean test (spy:memcached 2.5 from a local copy of the artifact the tag's own repository served; the report decides)
+  runtime: openjdk version 1.8.0_382, Apache Maven 3.9.16
+  report: esigate-core-3.4.1.1-backpatch-00001-tests.zip
+  report_sha256: bebd492ce711e8cde0272d85a3e46c107fd453a534a36ea640dac759f50022d9
+  result: pass
+  note: 155 tests at the patch commit, 0 of them skipped by the suite, 0 failed, 0 errors.
